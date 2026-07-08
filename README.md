@@ -8,6 +8,8 @@
 
 灵感来自 [wenfeng110402/AppleMusic-Downloader](https://github.com/wenfeng110402/AppleMusic-Downloader)。
 
+![截图](Screenshot/1.png)
+
 ---
 
 ## 功能

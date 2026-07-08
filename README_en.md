@@ -8,6 +8,8 @@ A desktop Apple Music downloader with a beautiful dark-themed Web UI, built on [
 
 Inspired by [wenfeng110402/AppleMusic-Downloader](https://github.com/wenfeng110402/AppleMusic-Downloader).
 
+![Screenshot](Screenshot/1.png)
+
 > **中文用户请阅读 [中文 README](README.md)。**
 
 ---

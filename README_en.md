@@ -52,6 +52,12 @@ Get the latest version from [Releases](https://github.com/DerekH-233/AMDL/releas
 
 > **Requires a valid Apple Music subscription. For personal use only. Respect copyright.**
 
+### Important Notes
+
+- **Region Restrictions**: Ensure the song is available in your Apple Music account's region. For example, a US account cannot download songs exclusive to the China store. If you see "Resource Not Found (404)", check whether the track is playable in your account region.
+- **Launcher**: Always use `启动.bat` to launch. Running `AMDL.exe` directly may cause encoding issues on non-English Windows.
+- **Cookies Expiry**: Re-export your cookies file if it expires.
+
 ---
 
 ## Development

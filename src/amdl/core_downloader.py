@@ -407,8 +407,11 @@ async def _download_urls_async(
         try:
             from amdl.converter import convert_directory, resolve_ffmpeg_executable
             exe = resolve_ffmpeg_executable(ffmpeg_path)
-            if exe:
-                logger.info("开始格式转换...")
+            if not exe:
+                logger.warning("格式转换需要 FFmpeg，但未找到。请安装 FFmpeg 并添加到 PATH，或在设置中指定路径。")
+                logger.warning("下载地址: https://ffmpeg.org/download.html")
+            else:
+                logger.info(f"开始格式转换 (FFmpeg: {exe})...")
                 convert_directory(
                     str(output_path),
                     audio_format,

@@ -4,9 +4,9 @@
 !include "FileFunc.nsh"
 
 !define PRODUCT_NAME "AMDL"
-!define PRODUCT_VERSION "3.0.0"
+!define PRODUCT_VERSION "1.0.0"
 !define PRODUCT_PUBLISHER "AMDL"
-!define PRODUCT_WEB_SITE "https://github.com/glomatico/gamdl"
+!define PRODUCT_WEB_SITE "https://github.com/DerekH-233/AMDL"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\AMDL.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 

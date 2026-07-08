@@ -2,7 +2,7 @@
 name = "applemusic-dl"
 description = "一个功能强大的 Apple Music 下载工具，支持下载歌曲、音乐视频。"
 requires-python = ">=3.10"
-authors = [{ name = "wenfeng110402" }]
+authors = [{ name = "DerekH-233" }]
 dependencies = [
     "gamdl",
     "click",
@@ -16,8 +16,8 @@ readme = "README.md"
 dynamic = ["version"]
 
 [project.urls]
-homepage = "https://github.com/wenfeng110402/AppleMusic-Downloader"
-repository = "https://github.com/wenfeng110402/AppleMusic-Downloader"
+homepage = "https://github.com/DerekH-233/AMDL"
+repository = "https://github.com/DerekH-233/AMDL"
 
 [build-system]
 requires = ["flit_core"]

@@ -55,7 +55,7 @@ export default function Sidebar() {
 
       {/* Footer */}
       <div className="px-5 py-4 border-t border-zinc-800">
-        <p className="text-xs text-zinc-500">AMDL v3.0.0</p>
+        <p className="text-xs text-zinc-500">AMDL v1.0.0</p>
       </div>
     </aside>
   );

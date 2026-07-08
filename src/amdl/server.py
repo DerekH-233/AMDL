@@ -148,6 +148,7 @@ class ConfigUpdateRequest(BaseModel):
     temp_path: str | None = None
     cookies_path: str | None = None
     download_lyrics: bool | None = None
+    folder_style: str | None = None
     codec_song: str | None = None
     codec_music_video: str | None = None
     cover_format: str | None = None

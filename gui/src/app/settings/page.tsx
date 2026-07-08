@@ -177,7 +177,7 @@ export default function SettingsPage() {
             >
               <option value="artist_album">歌手/专辑/歌曲</option>
               <option value="album_artist">专辑/歌手/歌曲</option>
-              <option value="none">无文件夹（仅文件名）</option>
+              <option value="none">仅单曲</option>
             </select>
           </div>
 

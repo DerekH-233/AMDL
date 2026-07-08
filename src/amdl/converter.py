@@ -67,7 +67,10 @@ def _run_subprocess(cmd: list[str]) -> tuple[int, str, str]:
             cmd,
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             startupinfo=_get_startupinfo(),
+            env={**__import__('os').environ, "PYTHONUTF8": "1"},
         )
         return result.returncode, result.stdout, result.stderr
     except Exception as error:

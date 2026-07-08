@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -16,6 +17,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
 from amdl.config_manager import load_config, save_config, CONFIG_PATH
+from amdl import __version__
 from amdl.core_downloader import download_urls
 from amdl.enums import (
     CoverFormat,
@@ -500,6 +502,51 @@ async def upload_cookies(file: UploadFile):
         raise HTTPException(status_code=500, detail=f"保存文件失败: {e}")
 
     return {"path": str(save_path), "filename": file.filename}
+
+
+# ═══════════════════════════════════════════════════════════════
+# 更新检查
+# ═══════════════════════════════════════════════════════════════
+
+@app.get("/api/update/check", tags=["system"])
+async def check_update():
+    """检查 GitHub Release 是否有新版本"""
+    import urllib.request
+
+    try:
+        url = "https://api.github.com/repos/DerekH-233/AMDL/releases/latest"
+        req = urllib.request.Request(url, headers={"User-Agent": "AMDL"})
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = json.loads(resp.read().decode())
+            latest_tag = data.get("tag_name", "").lstrip("v")
+    except Exception:
+        return {
+            "current": __version__,
+            "latest": None,
+            "has_update": False,
+            "error": "检查失败，请检查网络连接",
+            "release_url": "https://github.com/DerekH-233/AMDL/releases",
+        }
+
+    has_update = _version_newer(latest_tag, __version__)
+
+    return {
+        "current": __version__,
+        "latest": latest_tag,
+        "has_update": has_update,
+        "error": None,
+        "release_url": f"https://github.com/DerekH-233/AMDL/releases/tag/v{latest_tag}" if has_update else None,
+    }
+
+
+def _version_newer(latest: str, current: str) -> bool:
+    """比较版本号，latest > current 返回 True"""
+    try:
+        latest_parts = [int(x) for x in latest.split(".")]
+        current_parts = [int(x) for x in current.split(".")]
+        return latest_parts > current_parts
+    except (ValueError, AttributeError):
+        return False
 
 
 # ═══════════════════════════════════════════════════════════════

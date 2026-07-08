@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Sidebar from "@/components/Sidebar";
+import ClientLayout from "@/components/ClientLayout";
 
 export const metadata: Metadata = {
   title: "AMDL - Apple Music Downloader",
@@ -15,10 +15,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className="h-full">
       <body className="min-h-full flex">
-        <Sidebar />
-        <main className="ml-56 flex-1 min-h-screen p-8">
-          {children}
-        </main>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

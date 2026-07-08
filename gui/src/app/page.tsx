@@ -4,10 +4,12 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Download, Link, FileText, Loader2, CheckCircle2, XCircle, Music4, ShieldCheck, ShieldAlert, Folder, ListMusic } from 'lucide-react';
 import { api } from '@/lib/api';
+import { useI18n } from '@/lib/i18n';
 import type { Config } from '@/types';
 
 export default function HomePage() {
   const router = useRouter();
+  const { t } = useI18n();
   const [urlInput, setUrlInput] = useState('');
   const [cookiesPath, setCookiesPath] = useState('');
   const [outputPath, setOutputPath] = useState('');
@@ -55,7 +57,7 @@ export default function HomePage() {
     if (urls.length === 0) return;
     if (!cookiesPath) {
       setStatus('error');
-      setStatusMsg('请先选择 cookies.txt 文件');
+      setStatusMsg(t('please_select_cookies'));
       return;
     }
 
@@ -81,7 +83,7 @@ export default function HomePage() {
       });
 
       setStatus('success');
-      setStatusMsg(`任务已创建: ${res.task_id}`);
+      setStatusMsg(t('task_created', res.task_id));
     } catch (err) {
       setStatus('error');
       setStatusMsg(err instanceof Error ? err.message : '下载请求失败');
@@ -187,10 +189,8 @@ export default function HomePage() {
   return (
     <div className="max-w-3xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">下载 Apple Music</h1>
-        <p className="text-zinc-400">
-          支持歌曲、专辑、播放列表、音乐视频 — 粘贴链接即可下载
-        </p>
+        <h1 className="text-3xl font-bold text-white mb-2">{t('download_title')}</h1>
+        <p className="text-zinc-400">{t('download_desc')}</p>
       </div>
 
       {/* URL 输入区 */}

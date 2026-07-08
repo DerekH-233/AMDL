@@ -380,9 +380,7 @@ async def _download_urls_async(
         # 跳过错误项
         if item.media.error:
             error_count += 1
-            meta = item.media.media_metadata
-            name = meta.get("attributes", {}).get("name", "unknown") if isinstance(meta, dict) else "unknown"
-            logger.error(f'Failed to process "{name}": {item.media.error}', exc_info=not no_exceptions)
+            logger.error(f'解析失败: {item.media.error}')
             continue
 
         # 跳过 final_path 为空的项（gamdl bug：GBK 编码错误导致路径未生成）

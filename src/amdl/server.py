@@ -52,7 +52,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="AMDL API",
     description="Apple Music Downloader API — 支持实时进度推送和多任务队列",
-    version="1.0.0",
+    version="1.0.1",
     docs_url="/docs",
     redoc_url=None,
     lifespan=lifespan,
@@ -178,13 +178,13 @@ class ConfigUpdateRequest(BaseModel):
 
 @app.get("/api/health", tags=["system"])
 async def health_check():
-    return {"status": "ok", "version": "1.0.0"}
+    return {"status": "ok", "version": "1.0.1"}
 
 
 @app.get("/api/info", tags=["system"])
 async def get_api_info():
     return {
-        "api_version": "1.0.0",
+        "api_version": "1.0.1",
         "supported_codecs_song": [{"value": c.value, "label": c.name} for c in SongCodec],
         "supported_codecs_music_video": [{"value": c.value, "label": c.name} for c in MusicVideoCodec],
         "supported_cover_formats": [{"value": c.value, "label": c.name} for c in CoverFormat],
@@ -475,11 +475,39 @@ async def check_cookies(req: CookiesCheckRequest):
 
     has_sub = api.active_subscription
 
+    # 检测地区/商店
+    storefront = None
+    storefront_name = None
+    try:
+        info = await api.get_account_info()
+        storefront = info.get("meta", {}).get("subscription", {}).get("storefront")
+    except Exception:
+        pass
+
+    storefront_map = {
+        "us": "美国",
+        "cn": "中国",
+        "jp": "日本",
+        "tw": "台湾",
+        "hk": "香港",
+        "gb": "英国",
+        "fr": "法国",
+        "de": "德国",
+        "kr": "韩国",
+        "ca": "加拿大",
+        "au": "澳大利亚",
+    }
+    if storefront:
+        storefront_name = storefront_map.get(storefront.lower(), storefront.upper())
+
     return {
         "valid": True,
         "error": None,
         "subscription": has_sub,
-        "message": "cookies 有效" + ("，已订阅 Apple Music" if has_sub else "，但未检测到 Apple Music 订阅"),
+        "storefront": storefront,
+        "storefront_name": storefront_name,
+        "message": "cookies 有效" + ("，已订阅 Apple Music" if has_sub else "，但未检测到 Apple Music 订阅")
+                   + (f"（地区: {storefront_name}）" if storefront_name else ""),
     }
 
 

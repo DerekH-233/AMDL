@@ -46,7 +46,7 @@ Get the latest version from [Releases](https://github.com/DerekH-233/AMDL/releas
 
 1. Export your Apple Music cookies in **Netscape format**
    - Firefox: [Export Cookies](https://addons.mozilla.org/firefox/addon/export-cookies-txt/)
-   - Chrome/Edge: [Open Cookies.txt](https://chromewebstore.google.com/detail/open-cookiestxt/gdocmgbfkjnnpapoeobnolbbkoibbcif)
+   - Chrome/Edge: [Get cookies.txt LOCALLY](https://chromewebstore.google.com/detail/cclelndahbckbenkjhflpdbgdldlbecc?utm_source=item-share-cb)
 2. Launch AMDL, click "Browse" to select `cookies.txt`, click "Check" to verify
 3. Paste Apple Music links (songs, albums, playlists, music videos, artist pages)
 4. Set output path, click "Download"

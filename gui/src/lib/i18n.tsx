@@ -136,6 +136,13 @@ const translations: Record<Lang, Record<string, TranslationValue>> = {
     confirm_reset: '确定恢复默认设置？',
     recommended: '推荐',
     lossless: '无损',
+    folder_structure: '文件夹结构',
+    artist_first: '歌手/专辑/歌曲',
+    album_first: '专辑/歌手/歌曲',
+    single_track: '仅单曲',
+    file_name_order: '文件名排列（拖动方块排序）',
+    drag_hint: '拖动调整顺序，实时预览文件名格式',
+    ask_each: '每次询问',
   },
   en: {
     app_name: 'AMDL',
@@ -266,6 +273,13 @@ const translations: Record<Lang, Record<string, TranslationValue>> = {
     confirm_reset: 'Reset to default settings?',
     recommended: 'Recommended',
     lossless: 'Lossless',
+    folder_structure: 'Folder Structure',
+    artist_first: 'Artist / Album / Song',
+    album_first: 'Album / Artist / Song',
+    single_track: 'Single Track (no folder)',
+    file_name_order: 'File Name Order (drag to reorder)',
+    drag_hint: 'Drag blocks to reorder filename format',
+    ask_each: 'Ask Each Time',
   },
 };
 

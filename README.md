@@ -97,6 +97,10 @@ python build.py
 | 桌面壳 | pywebview |
 | 打包 | PyInstaller + NSIS |
 
+## 平台支持
+
+目前仅提供 Windows 安装包。核心组件（gamdl、FastAPI、Next.js、pywebview）均跨平台，macOS / Linux 用户可参考下方「开发」一节从源码运行。欢迎贡献 macOS 适配。
+
 ## 鸣谢
 
 - [glomatico/gamdl](https://github.com/glomatico/gamdl) — Apple Music 下载引擎

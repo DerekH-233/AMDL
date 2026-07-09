@@ -97,6 +97,10 @@ python build.py
 | Desktop Shell | pywebview |
 | Packaging | PyInstaller + NSIS |
 
+## Platform Support
+
+Currently Windows only. All core components (gamdl, FastAPI, Next.js, pywebview) are cross-platform. macOS / Linux users can run from source — see Development section above. macOS contributions are welcome.
+
 ## Acknowledgments
 
 - [glomatico/gamdl](https://github.com/glomatico/gamdl) — Apple Music download engine

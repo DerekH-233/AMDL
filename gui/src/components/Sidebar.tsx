@@ -55,7 +55,7 @@ export default function Sidebar() {
           <Languages className="w-4 h-4" />
           {lang === 'zh' ? 'English' : '中文'}
         </button>
-        <p className="text-xs text-zinc-500 px-3">AMDL v1.0.2</p>
+        <p className="text-xs text-zinc-500 px-3">AMDL v1.0.3</p>
       </div>
     </aside>
   );

@@ -13,7 +13,7 @@ DIST = ROOT / "dist"
 BUILD = ROOT / "build_output"
 
 APP_NAME = "AMDL"
-VERSION = "1.0.2"
+VERSION = "1.0.3"
 
 
 def step(msg: str):

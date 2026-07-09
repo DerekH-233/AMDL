@@ -46,7 +46,7 @@ export default function AboutPage() {
   return (
     <div className="max-w-2xl mx-auto">
       <h1 className="text-3xl font-bold text-white mb-2">{t('about_title')}</h1>
-      <p className="text-zinc-400 mb-8">Apple Music Downloader v1.0.2</p>
+      <p className="text-zinc-400 mb-8">Apple Music Downloader v1.0.3</p>
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 mb-6">
         <h2 className="text-lg font-semibold text-white mb-3">{t('update_section')}</h2>

@@ -1,5 +1,7 @@
 # AMDL - Apple Music Downloader
 
+> [English README](README_en.md)
+
 一个基于 [gamdl](https://github.com/glomatico/gamdl) 的桌面端 Apple Music 下载工具，拥有美观的暗色 Web 界面。
 
 [![Platform](https://img.shields.io/badge/platform-Windows-blue)](https://github.com/DerekH-233/AMDL)

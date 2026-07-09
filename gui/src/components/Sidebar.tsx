@@ -1,13 +1,20 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Download, ListTodo, History, Settings, Info, Music4, Languages } from 'lucide-react';
 import { useI18n } from '@/lib/i18n';
+import { api } from '@/lib/api';
 
 export default function Sidebar() {
   const pathname = usePathname();
   const { t, lang, setLang } = useI18n();
+  const [version, setVersion] = useState('');
+
+  useEffect(() => {
+    api.get<{ version: string }>('/api/version').then(r => setVersion(r.version)).catch(() => {});
+  }, []);
 
   const navItems = [
     { href: '/', label: t('download'), icon: Download },
@@ -55,7 +62,7 @@ export default function Sidebar() {
           <Languages className="w-4 h-4" />
           {lang === 'zh' ? 'English' : '中文'}
         </button>
-        <p className="text-xs text-zinc-500 px-3">AMDL v1.0.3</p>
+        <p className="text-xs text-zinc-500 px-3">AMDL v{version || '---'}</p>
       </div>
     </aside>
   );

@@ -13,7 +13,10 @@ DIST = ROOT / "dist"
 BUILD = ROOT / "build_output"
 
 APP_NAME = "AMDL"
-VERSION = "1.0.3"
+# 从 __init__.py 读取唯一版本号
+import runpy
+_version_ns = runpy.run_path(str(ROOT / "src" / "amdl" / "__init__.py"))
+VERSION = _version_ns["__version__"]
 
 
 def step(msg: str):

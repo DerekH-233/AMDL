@@ -1,13 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { RefreshCw, CheckCircle2, AlertTriangle, ExternalLink } from 'lucide-react';
 import { api } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
 
 export default function AboutPage() {
   const { t } = useI18n();
+  const [version, setVersion] = useState('');
   const [checking, setChecking] = useState(false);
+
+  useEffect(() => {
+    api.get<{ version: string }>('/api/version').then(r => setVersion(r.version)).catch(() => {});
+  }, []);
   const [updateStatus, setUpdateStatus] = useState<'idle' | 'up-to-date' | 'update-available' | 'error'>('idle');
   const [updateMsg, setUpdateMsg] = useState('');
   const [updateUrl, setUpdateUrl] = useState('');
@@ -46,7 +51,7 @@ export default function AboutPage() {
   return (
     <div className="max-w-2xl mx-auto">
       <h1 className="text-3xl font-bold text-white mb-2">{t('about_title')}</h1>
-      <p className="text-zinc-400 mb-8">Apple Music Downloader v1.0.3</p>
+      <p className="text-zinc-400 mb-8">Apple Music Downloader v{version || '---'}</p>
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 mb-6">
         <h2 className="text-lg font-semibold text-white mb-3">{t('update_section')}</h2>
@@ -92,7 +97,7 @@ export default function AboutPage() {
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
             <span className="text-zinc-400">{t('version')}</span>
-            <span className="text-white font-mono">1.0.2</span>
+            <span className="text-white font-mono">{version || '---'}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-zinc-400">{t('backend')}</span>

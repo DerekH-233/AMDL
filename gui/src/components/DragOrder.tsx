@@ -18,6 +18,7 @@ import {
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { GripVertical } from 'lucide-react';
+import { useI18n } from '@/lib/i18n';
 
 const allBlocks = [
   { id: 'track', labelZh: '曲序号', labelEn: 'Track #' },
@@ -65,9 +66,18 @@ interface DragOrderProps {
 }
 
 export default function DragOrder({ value, onChange }: DragOrderProps) {
+  const { lang } = useI18n();
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
+
+  const isZh = lang === 'zh';
+  const t_section = {
+    selected: isZh ? '已选择（排列顺序 = 文件名顺序）' : 'Selected (order = filename order)',
+    available: isZh ? '待选（拖到上方加入，从上方向下拖移出）' : 'Available (drag up to add, drag down to remove)',
+    dropHint: isZh ? '拖入方块到此区域' : 'Drag blocks here',
+    noMore: isZh ? '无更多选项' : 'No more options',
+  };
 
   const selected = value; // items in "已选择"
   const available = allBlocks.filter((b) => !selected.includes(b.id)).map((b) => b.id);
@@ -120,7 +130,7 @@ export default function DragOrder({ value, onChange }: DragOrderProps) {
   const draggingToAvailable = activeId && selected.includes(activeId);
 
   const labels = allBlocks.reduce(
-    (acc, b) => ({ ...acc, [b.id]: b.labelZh }),
+    (acc, b) => ({ ...acc, [b.id]: isZh ? b.labelZh : b.labelEn }),
     {} as Record<string, string>
   );
 
@@ -129,22 +139,22 @@ export default function DragOrder({ value, onChange }: DragOrderProps) {
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
         {/* 已选择区域 */}
         <div>
-          <p className="text-xs text-zinc-500 mb-1.5">已选择（排列顺序 = 文件名顺序）</p>
+          <p className="text-xs text-zinc-500 mb-1.5">{t_section.selected}</p>
           <SortableContext items={selected} strategy={verticalListSortingStrategy}>
             <div className="flex flex-wrap gap-2 p-3 bg-zinc-800/50 rounded-lg min-h-[44px] items-center">
               {selected.map((id) => (
                 <SortableBlock key={id} id={id} label={labels[id] || id} />
               ))}
               {selected.length === 0 && (
-                <p className="text-xs text-zinc-600 w-full text-center">拖入方块到此区域</p>
+                <p className="text-xs text-zinc-600 w-full text-center">{t_section.dropHint}</p>
               )}
             </div>
           </SortableContext>
         </div>
 
-        {/* 待选区域 */}
+        {/* Available */}
         <div>
-          <p className="text-xs text-zinc-500 mb-1.5">待选（拖到上方加入，从上方向下拖移出）</p>
+          <p className="text-xs text-zinc-500 mb-1.5">{t_section.available}</p>
           <SortableContext items={available} strategy={verticalListSortingStrategy}>
             <div
               className={`flex flex-wrap gap-2 p-3 rounded-lg min-h-[44px] items-center border border-dashed transition-colors ${
@@ -157,7 +167,7 @@ export default function DragOrder({ value, onChange }: DragOrderProps) {
                 <SortableBlock key={id} id={id} label={labels[id] || id} />
               ))}
               {available.length === 0 && (
-                <p className="text-xs text-zinc-600 w-full text-center">无更多选项</p>
+                <p className="text-xs text-zinc-600 w-full text-center">{t_section.noMore}</p>
               )}
             </div>
           </SortableContext>

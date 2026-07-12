@@ -46,7 +46,11 @@ export default function HomePage() {
       localStorage.setItem('amdl_output_path', outputPath);
       api.put('/api/config', { output_path: outputPath }).catch(() => {});
     }
-  }, [cookiesPath, outputPath]);
+    api.put('/api/config', {
+      folder_style: folderStyle,
+      file_name_order: fileNameOrder,
+    }).catch(() => {});
+  }, [cookiesPath, outputPath, folderStyle, fileNameOrder]);
 
   const handleDownload = useCallback(async () => {
     const urls = urlInput.split('\n').map((u) => u.trim()).filter((u) => u.length > 0);

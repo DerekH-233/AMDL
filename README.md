@@ -99,7 +99,7 @@ python build.py
 
 ## 平台支持
 
-目前仅提供 Windows 安装包。核心组件（gamdl、FastAPI、Next.js、pywebview）均跨平台，macOS / Linux 用户可参考上方「开发」一节从源码运行。欢迎贡献 macOS 适配。
+目前仅提供 Windows 安装包。核心组件（gamdl、FastAPI、Next.js、pywebview）均跨平台，macOS / Linux 用户可参考下方「开发」一节从源码运行。欢迎贡献 macOS 适配。
 
 ## 鸣谢
 

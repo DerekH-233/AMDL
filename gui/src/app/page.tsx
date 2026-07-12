@@ -182,23 +182,6 @@ export default function HomePage() {
         </div>
       </div>
 
-      {hasAlbum && (
-        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 mb-6">
-          <label className="flex items-center justify-between cursor-pointer">
-            <div>
-              <span className="text-sm text-zinc-300">{t('append_year_label')}</span>
-              <p className="text-xs text-zinc-500 mt-0.5">{t('append_year_desc')}</p>
-            </div>
-            <button
-              className={`w-10 h-6 rounded-full transition-colors relative ${appendYear ? 'bg-blue-500' : 'bg-zinc-700'}`}
-              onClick={() => setAppendYear(!appendYear)}
-            >
-              <div className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-transform ${appendYear ? 'translate-x-5' : 'translate-x-1'}`} />
-            </button>
-          </label>
-        </div>
-      )}
-
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 mb-6">
         <label className="flex items-center gap-2 text-sm font-medium text-zinc-300 mb-3">
           <FileText className="w-4 h-4" />{t('cookies_label')}
@@ -232,19 +215,36 @@ export default function HomePage() {
 
       <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 mb-6">
         <label className="text-sm font-medium text-zinc-300 block mb-3">{t('folder_structure')}</label>
-        <select className="w-full" value={folderStyle} onChange={(e) => setFolderStyle(e.target.value)}>
+        <select className="w-full mb-3" value={folderStyle} onChange={(e) => setFolderStyle(e.target.value)}>
           <option value="artist_album">{t('artist_first')}</option>
           <option value="album_artist">{t('album_first')}</option>
           <option value="none">{t('single_track')}</option>
         </select>
         {folderStyle === 'none' && (
-          <div className="mt-3">
+          <div>
             <label className="text-xs text-zinc-400 block mb-2">{t('file_name_order')}</label>
             <DragOrder value={fileNameOrder} onChange={setFileNameOrder} />
             <p className="text-xs text-zinc-500 mt-1">{t('drag_hint')}</p>
           </div>
         )}
       </div>
+
+      {hasAlbum && (
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 mb-6">
+          <label className="flex items-center justify-between cursor-pointer">
+            <div>
+              <span className="text-sm text-zinc-300">{t('append_year_label')}</span>
+              <p className="text-xs text-zinc-500 mt-0.5">{t('append_year_desc')}</p>
+            </div>
+            <button
+              className={`w-10 h-6 rounded-full transition-colors relative ${appendYear ? 'bg-blue-500' : 'bg-zinc-700'}`}
+              onClick={() => setAppendYear(!appendYear)}
+            >
+              <div className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-transform ${appendYear ? 'translate-x-5' : 'translate-x-1'}`} />
+            </button>
+          </label>
+        </div>
+      )}
 
       <div className="flex items-center gap-4">
         <button className="btn-primary flex items-center gap-2 px-8 py-3 text-base"

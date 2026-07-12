@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from 'react';
 import { Save, RotateCcw, Trash2, Loader2 } from 'lucide-react';
 import { api } from '@/lib/api';
 import { useI18n } from '@/lib/i18n';
-import DragOrder, { defaultOrder } from '@/components/DragOrder';
 import type { Config, ApiInfo } from '@/types';
 
 export default function SettingsPage() {
@@ -98,18 +97,6 @@ export default function SettingsPage() {
         <div className="space-y-4">
           <div><label className="text-xs text-zinc-400 block mb-1">{t('download_dir')}</label>
             <input type="text" className="w-full" value={config.output_path} onChange={(e) => updateField('output_path', e.target.value)} /></div>
-          <div><label className="text-xs text-zinc-400 block mb-1">{t('folder_structure')}</label>
-            <select className="w-full" value={config.folder_style || 'artist_album'} onChange={(e) => updateField('folder_style' as keyof Config, e.target.value)}>
-              <option value="artist_album">{t('artist_first')}</option>
-              <option value="album_artist">{t('album_first')}</option>
-              <option value="none">{t('single_track')}</option>
-            </select></div>
-          {(config.folder_style || 'artist_album') === 'none' && (
-            <div><label className="text-xs text-zinc-400 block mb-2">{t('file_name_order')}</label>
-              <DragOrder value={config.file_name_order || defaultOrder}
-                onChange={(order) => updateField('file_name_order' as keyof Config, order as unknown as string)} />
-              <p className="text-xs text-zinc-500 mt-1">{t('drag_hint')}</p></div>
-          )}
           <div><label className="text-xs text-zinc-400 block mb-1">{t('temp_dir')}</label>
             <input type="text" className="w-full" value={config.temp_path} onChange={(e) => updateField('temp_path', e.target.value)} /></div>
           <div><label className="text-xs text-zinc-400 block mb-1">{t('audio_codec')}</label>

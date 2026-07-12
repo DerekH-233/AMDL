@@ -280,17 +280,16 @@ async def create_task(req: TaskCreateRequest):
 
     # 专辑名后添加年份
     if req.append_year:
-        kwargs["template_date"] = "%Y"  # 只显示年份
         for key in ["template_folder_album", "template_folder_compilation"]:
             val = kwargs.get(key)
             if val and "{album}" in val:
-                kwargs[key] = val.replace("{album}", "{album} ({date})")
+                kwargs[key] = val.replace("{album}", "{album} ({year})")
             elif val and val == "{playlist_title}":
                 pass  # 歌单文件夹不加年份
         if "template_folder_no_album" in kwargs:
             val = kwargs["template_folder_no_album"]
             if val and val != "" and val != "." and "{album}" not in (val or ""):
-                kwargs["template_folder_no_album"] = "{album} ({date})"
+                kwargs["template_folder_no_album"] = "{album} ({year})"
 
     task = task_manager.create_task(**kwargs)
     task_manager.enqueue_task(task.id)

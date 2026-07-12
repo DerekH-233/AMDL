@@ -98,6 +98,7 @@ class TaskCreateRequest(BaseModel):
     read_urls_as_txt: bool = Field(default=False)
     exclude_tags: str | None = Field(default=None)
     append_year: bool = Field(default=False, description="是否在专辑名后添加年份")
+    year_before_album: bool = Field(default=False, description="年份放在专辑名前")
     folder_style: str | None = Field(default=None, description="文件夹结构（覆盖配置）")
     file_name_order: list | None = Field(default=None, description="文件名排列（覆盖配置）")
     template_folder_album: str = Field(default="{album_artist}/{album}")
@@ -278,18 +279,22 @@ async def create_task(req: TaskCreateRequest):
             kwargs["template_folder_compilation"] = "{album}/{album_artist}"
         # artist_album is the gamdl default, no override needed
 
-    # 专辑名后添加年份
+    # 专辑名添加年份
     if req.append_year:
+        if req.year_before_album:
+            replacement = "({year}) {album}"
+        else:
+            replacement = "{album} ({year})"
         for key in ["template_folder_album", "template_folder_compilation"]:
             val = kwargs.get(key)
             if val and "{album}" in val:
-                kwargs[key] = val.replace("{album}", "{album} ({year})")
+                kwargs[key] = val.replace("{album}", replacement)
             elif val and val == "{playlist_title}":
                 pass  # 歌单文件夹不加年份
         if "template_folder_no_album" in kwargs:
             val = kwargs["template_folder_no_album"]
             if val and val != "" and val != "." and "{album}" not in (val or ""):
-                kwargs["template_folder_no_album"] = "{album} ({year})"
+                kwargs["template_folder_no_album"] = replacement
 
     task = task_manager.create_task(**kwargs)
     task_manager.enqueue_task(task.id)

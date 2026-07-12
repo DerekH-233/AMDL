@@ -22,6 +22,7 @@ export default function HomePage() {
   const [cookiesValid, setCookiesValid] = useState<'idle' | 'valid' | 'invalid'>('idle');
   const [cookiesMsg, setCookiesMsg] = useState('');
   const [appendYear, setAppendYear] = useState(false);
+  const [yearBeforeAlbum, setYearBeforeAlbum] = useState(false);
   const [folderStyle, setFolderStyle] = useState('artist_album');
   const [fileNameOrder, setFileNameOrder] = useState(defaultOrder);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -77,6 +78,7 @@ export default function HomePage() {
         audio_format: latestConfig?.audio_format || null,
         video_format: latestConfig?.video_format || null,
         append_year: appendYear,
+        year_before_album: yearBeforeAlbum,
         folder_style: folderStyle,
         file_name_order: folderStyle === 'none' ? fileNameOrder : undefined,
       });
@@ -88,7 +90,7 @@ export default function HomePage() {
     } finally {
       setDownloading(false);
     }
-  }, [urlInput, cookiesPath, config, outputPath, router, t, appendYear, folderStyle, fileNameOrder]);
+  }, [urlInput, cookiesPath, config, outputPath, router, t, appendYear, yearBeforeAlbum, folderStyle, fileNameOrder]);
 
   const handleCookieSelect = useCallback(async () => {
     try {
@@ -247,6 +249,22 @@ export default function HomePage() {
               <div className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-transform ${appendYear ? 'translate-x-5' : 'translate-x-1'}`} />
             </button>
           </label>
+          {appendYear && (
+            <div className="mt-3 ml-2 pl-3 border-l border-zinc-700 space-y-2">
+              <label className="flex items-center justify-between cursor-pointer">
+                <div>
+                  <span className="text-xs text-zinc-400">{t('year_before_album_label')}</span>
+                  <p className="text-xs text-zinc-500">{t('year_before_album_desc')}</p>
+                </div>
+                <button
+                  className={`w-9 h-5 rounded-full transition-colors relative ${yearBeforeAlbum ? 'bg-blue-500' : 'bg-zinc-700'}`}
+                  onClick={() => setYearBeforeAlbum(!yearBeforeAlbum)}
+                >
+                  <div className={`w-3.5 h-3.5 rounded-full bg-white absolute top-0.5 transition-transform ${yearBeforeAlbum ? 'translate-x-4' : 'translate-x-0.5'}`} />
+                </button>
+              </label>
+            </div>
+          )}
         </div>
       )}
 

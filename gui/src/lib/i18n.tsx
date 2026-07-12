@@ -144,6 +144,8 @@ const translations: Record<Lang, Record<string, TranslationValue>> = {
     drag_hint: '拖动调整顺序，实时预览文件名格式',
     ask_each: '每次询问',
     append_year_label: '在专辑名后添加年份',
+    year_before_album_label: '年份放在专辑名前',
+    year_before_album_desc: '开启后显示为 (2024) 专辑名，关则显示为 专辑名 (2024)',
     append_year_desc: '如「专辑名 (2021)」',
   },
   en: {
@@ -284,6 +286,8 @@ const translations: Record<Lang, Record<string, TranslationValue>> = {
     ask_each: 'Ask Each Time',
     append_year_label: 'Append release year to album name',
     append_year_desc: 'e.g. "Album Name (2021)"',
+    year_before_album_label: 'Put year before album name',
+    year_before_album_desc: 'Shows as (2021) Album Name instead of Album Name (2021)',
   },
 };
 

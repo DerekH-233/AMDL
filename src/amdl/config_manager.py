@@ -12,6 +12,7 @@ DEFAULT_CONFIG: dict = {
     "download_lyrics": True,
     "folder_style": "artist_album",
     "file_name_order": ["track", "title", "artist"],
+    "artist_media_type": "all-albums",
     "output_path": str(Path.home() / "Music" / "Apple Music"),
     "temp_path": str(Path.home() / ".amdl" / "temp"),
     "codec_song": "aac-web",

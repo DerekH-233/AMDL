@@ -101,6 +101,7 @@ class TaskCreateRequest(BaseModel):
     year_before_album: bool = Field(default=False, description="年份放在专辑名前")
     folder_style: str | None = Field(default=None, description="文件夹结构（覆盖配置）")
     file_name_order: list | None = Field(default=None, description="文件名排列（覆盖配置）")
+    artist_media_type: str = Field(default="all-albums", description="艺术家下载范围")
     template_folder_album: str = Field(default="{album_artist}/{album}")
     template_folder_compilation: str = Field(default="Compilations/{album}")
     template_file_single_disc: str = Field(default="{track:02d} {title}")
@@ -155,6 +156,7 @@ class ConfigUpdateRequest(BaseModel):
     download_lyrics: bool | None = None
     folder_style: str | None = None
     file_name_order: list | None = None
+    artist_media_type: str | None = None
     codec_song: str | None = None
     codec_music_video: str | None = None
     cover_format: str | None = None

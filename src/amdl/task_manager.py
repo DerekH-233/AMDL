@@ -72,6 +72,7 @@ class TaskInfo:
     no_synced_lyrics: bool = False
     read_urls_as_txt: bool = False
     exclude_tags: str | None = None
+    artist_media_type: str = "all-albums"
     # 模板
     template_folder_album: str = "{album_artist}/{album}"
     template_folder_compilation: str = "Compilations/{album}"
@@ -365,6 +366,7 @@ class TaskManager:
                 synced_lyrics_only=task.synced_lyrics_only,
                 no_synced_lyrics=task.no_synced_lyrics,
                 read_urls_as_txt=task.read_urls_as_txt,
+                artist_media_type=task.artist_media_type,
                 language=task.language,
                 log_callback=log_callback,
                 log_level="INFO",

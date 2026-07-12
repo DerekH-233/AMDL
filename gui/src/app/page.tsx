@@ -23,6 +23,7 @@ export default function HomePage() {
   const [cookiesMsg, setCookiesMsg] = useState('');
   const [appendYear, setAppendYear] = useState(false);
   const [yearBeforeAlbum, setYearBeforeAlbum] = useState(false);
+  const [artistMediaType, setArtistMediaType] = useState('all-albums');
   const [folderStyle, setFolderStyle] = useState('artist_album');
   const [fileNameOrder, setFileNameOrder] = useState(defaultOrder);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -79,6 +80,7 @@ export default function HomePage() {
         video_format: latestConfig?.video_format || null,
         append_year: appendYear,
         year_before_album: yearBeforeAlbum,
+        artist_media_type: artistMediaType,
         folder_style: folderStyle,
         file_name_order: folderStyle === 'none' ? fileNameOrder : undefined,
       });
@@ -90,7 +92,7 @@ export default function HomePage() {
     } finally {
       setDownloading(false);
     }
-  }, [urlInput, cookiesPath, config, outputPath, router, t, appendYear, yearBeforeAlbum, folderStyle, fileNameOrder]);
+  }, [urlInput, cookiesPath, config, outputPath, router, t, appendYear, yearBeforeAlbum, artistMediaType, folderStyle, fileNameOrder]);
 
   const handleCookieSelect = useCallback(async () => {
     try {
@@ -161,6 +163,7 @@ export default function HomePage() {
   const urlLines = urlInput.split('\n').filter((u) => u.trim());
   const hasPlaylist = urlLines.some((u) => u.includes('playlist'));
   const hasAlbum = urlLines.some((u) => u.includes('album'));
+  const hasArtist = urlLines.some((u) => u.includes('artist'));
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -265,6 +268,21 @@ export default function HomePage() {
               </label>
             </div>
           )}
+        </div>
+      )}
+
+      {hasArtist && (
+        <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-6 mb-6">
+          <label className="text-sm font-medium text-zinc-300 block mb-3">{t('artist_media_type_label')}</label>
+          <select className="w-full" value={artistMediaType} onChange={(e) => setArtistMediaType(e.target.value)}>
+            <option value="all-albums">{t('artist_type_all')}</option>
+            <option value="main-albums">{t('artist_type_main')}</option>
+            <option value="singles-eps">{t('artist_type_singles')}</option>
+            <option value="compilation-albums">{t('artist_type_compilations')}</option>
+            <option value="live-albums">{t('artist_type_live')}</option>
+            <option value="top-songs">{t('artist_type_top')}</option>
+            <option value="music-videos">{t('artist_type_videos')}</option>
+          </select>
         </div>
       )}
 

@@ -149,6 +149,7 @@ def download_urls(
     no_synced_lyrics: bool = False,
     disable_music_video_skip: bool = False,
     read_urls_as_txt: bool = False,
+    artist_media_type: str = "all-albums",
     no_exceptions: bool = True,
     # optional – API
     language: str = "en-US",
@@ -242,6 +243,7 @@ async def _download_urls_async(
     synced_lyrics_only: bool = False,
     no_synced_lyrics: bool = False,
     read_urls_as_txt: bool = False,
+    artist_media_type: str = "all-albums",
     no_exceptions: bool = True,
     language: str = "en-US",
     log_callback: LogCallback | None = None,
@@ -297,6 +299,14 @@ async def _download_urls_async(
         wvd_path=str(wvd_path) if wvd_path else None,
     )
 
+    # 艺术家下载范围（默认全部专辑）
+    from gamdl.interface.enums import ArtistMediaType
+    def _pick_artist_media_type(types, metadata):
+        for t in types:
+            if t.value == artist_media_type:
+                return t
+        return types[0]
+
     song_interface = AppleMusicSongInterface(
         base=base_interface,
         synced_lyrics_format=synced_lyrics_format,
@@ -316,6 +326,9 @@ async def _download_urls_async(
         music_video=music_video_interface,
         uploaded_video=uploaded_video_interface,
     )
+    # 艺术家下载：设回调（选范围 + 返回全部条目）
+    interface.artist_select_media_type_function = _pick_artist_media_type
+    interface.artist_select_items_function = lambda media_type, items: items
 
     # ── build gamdl downloader stack ─────────────────────
     base_downloader = AppleMusicBaseDownloader(
